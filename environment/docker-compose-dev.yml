@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    hostname: kafdrop
+    ports:
+      - 8090:9000
+    environment:
+      KAFKA_BROKERCONNECT: "kafka:29092"
+      JVM_OPT: "-Xms32M -Xmx256M"
