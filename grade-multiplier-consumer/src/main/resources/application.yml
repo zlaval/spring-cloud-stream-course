@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: grade-multiplier-consumer
+  kafka:
+    bootstrap-servers: localhost:9092
+  cloud:
+    stream:
+      function:
+        definition: consumeGradeMultiplier
+      default-binder: kafka
+      kafka:
+        binder:
+          auto-create-topics: true
+          consumer-properties:
+            key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            value.deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+            spring.json.trusted.packages: "*"
+      bindings:
+        consumeGradeMultiplier-in-0:
+          destination: grade-topic
+          group: grade-consumer
+          consumer:
+            useNativeDecoding: true

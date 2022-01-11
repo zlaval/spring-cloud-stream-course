@@ -18,7 +18,7 @@ allprojects {
     apply(plugin = "org.jetbrains.kotlin.plugin.spring")
     apply(plugin = "io.spring.dependency-management")
 
-    group = "com.zlrx"
+    group = "com.zlrx.reactive.cloud.course"
     version = "1.0.0"
     java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -65,6 +65,8 @@ subprojects {
         implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.1")
         implementation("io.projectreactor.netty:reactor-netty:1.0.14")
 
+        annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
         testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     }
@@ -95,3 +97,17 @@ subprojects {
 
 
 
+dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+}
+repositories {
+    mavenCentral()
+}
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}

@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: grade-multiplier-producer
+  kafka:
+    bootstrap-servers: localhost:9092
+  cloud:
+    stream:
+      function:
+        definition: produceGradeMultiplier
+      default-binder: kafka
+      kafka:
+        binder:
+          auto-create-topics: true
+          producer-properties:
+            key.serializer: org.apache.kafka.common.serialization.StringSerializer
+            value.serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      bindings:
+        produceGradeMultiplier-out-0:
+          destination: grade-topic
+          producer:
+            useNativeEncoding: true
