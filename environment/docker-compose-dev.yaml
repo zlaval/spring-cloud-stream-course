@@ -7,4 +7,3 @@ services:
       - 8090:9000
     environment:
       KAFKA_BROKERCONNECT: "kafka:29092"
-      JVM_OPT: "-Xms32M -Xmx256M"

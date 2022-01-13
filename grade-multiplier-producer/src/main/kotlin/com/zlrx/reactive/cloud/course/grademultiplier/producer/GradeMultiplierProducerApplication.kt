@@ -1,4 +1,4 @@
-package com.zlrx.reactive.cloud.course.grademultiplierproducer
+package com.zlrx.reactive.cloud.course.grademultiplier.producer
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

@@ -1,4 +1,4 @@
-package com.zlrx.reactive.cloud.course.grademultiplierconsumer.stream
+package com.zlrx.reactive.cloud.course.grademultiplier.consumer.stream
 
 import com.zlrx.reactive.cloud.course.model.GradeMultiplier
 import org.slf4j.LoggerFactory
