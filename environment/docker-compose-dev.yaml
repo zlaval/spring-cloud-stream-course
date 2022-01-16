@@ -7,3 +7,13 @@ services:
       - 8090:9000
     environment:
       KAFKA_BROKERCONNECT: "kafka:29092"
+  schema-registry-ui:
+    image: landoop/schema-registry-ui:0.9.5
+    hostname: schema-registry-ui
+    depends_on:
+      - schema-registry
+    environment:
+      SCHEMAREGISTRY_URL: "http://schema-registry:8081"
+      PROXY: "true"
+    ports:
+      - 8091:8000

@@ -23,3 +23,20 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,APPLICATION_HOST:PLAINTEXT
       KAFKA_LISTENERS: PLAINTEXT://kafka:29092,APPLICATION_HOST://kafka:9092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,APPLICATION_HOST://localhost:9092
+  schema-registry:
+    image: confluentinc/cp-schema-registry:6.2.2
+    hostname: schema-registry
+    depends_on:
+      - kafka
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: "zookeeper:2181"
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_LISTENERS: "http://0.0.0.0:8081"
+    ports:
+      - 8081:8081
+
+
+
+
+
+
