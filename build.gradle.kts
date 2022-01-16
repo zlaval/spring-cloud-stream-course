@@ -7,6 +7,7 @@ plugins {
     id("com.adarshr.test-logger") version "3.1.0"
     id("org.springframework.boot") version "2.6.2" apply false
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    id("com.github.davidmc24.gradle.plugin.avro") version "1.3.0" apply false
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
 }
@@ -24,6 +25,10 @@ allprojects {
 
     repositories {
         mavenCentral()
+        maven {
+            url = uri("http://packages.confluent.io/maven/")
+            isAllowInsecureProtocol = true
+        }
         mavenLocal()
     }
 

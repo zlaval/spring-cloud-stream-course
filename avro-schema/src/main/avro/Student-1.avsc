@@ -1,0 +1,124 @@
+{
+  "name": "Student",
+  "type": "record",
+  "namespace": "com.zlrx.schemas",
+  "doc": "Version [1]",
+  "fields": [
+    {
+      "name": "context",
+      "type": {
+        "namespace": "com.zlrx.schemas.common",
+        "name": "Context",
+        "type": "record",
+        "fields": [
+          {
+            "name": "producer",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "type": {
+              "type": "long",
+              "logicalType": "timestamp-millis"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "type": "long"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "birth",
+      "type": "int"
+    },
+    {
+      "name": "gpa",
+      "type": "float",
+      "doc": "grade point average"
+    },
+    {
+      "name": "active",
+      "type": "boolean"
+    },
+    {
+      "name": "sex",
+      "type": {
+        "name": "Sex",
+        "namespace": "com.zlrx.schemas.student",
+        "type": "enum",
+        "symbols": [
+          "MALE",
+          "FEMALE"
+        ]
+      }
+    },
+    {
+      "name": "subject",
+      "type": {
+        "type": "array",
+        "items": "string"
+      }
+    },
+    {
+      "name": "address",
+      "type": {
+        "name": "Address",
+        "namespace": "com.zlrx.schemas.student",
+        "type": "record",
+        "fields": [
+          {
+            "name": "zip",
+            "type": "string"
+          },
+          {
+            "name": "city",
+            "type": "string"
+          },
+          {
+            "name": "street",
+            "type": "string"
+          },
+          {
+            "name": "houseNumber",
+            "type": "int"
+          },
+          {
+            "name": "floor",
+            "type": [
+              "null",
+              "int"
+            ],
+            "default": null
+          }
+        ]
+      }
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
