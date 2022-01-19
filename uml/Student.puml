@@ -1,0 +1,42 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+class Context{
+    - producer: String
+    - id: String
+    - timestamp: Instant
+}
+
+class Address{
+   -  zip: String
+   -  city: String
+   -  street: String
+   -  houseNumber: Int
+   -  floor: Int
+}
+
+class Student{
+    - context: Context
+    - id: Long
+    - name: String
+    - birth: Int
+    - gpa: Float
+    - active: Boolean
+    - sex: Sex
+    - address: Address
+    - subject: List<String>
+}
+
+enum Sex {
+    # MALE
+    # FEMALE
+}
+
+
+Student -- Context
+Student -- Address
+Student -- Sex
+
+
+@enduml

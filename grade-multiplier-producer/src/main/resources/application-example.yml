@@ -1,0 +1,80 @@
+spring:
+  cloud:
+    stream:
+      function:
+        definition: myProducer;myConsumer
+      default-binder: rabbit
+      bindings:
+        # spring.cloud.stream.bindings.<binding-name>
+        myConsumer-in-0:
+          destination: some-topic
+          group: consumer-group
+          contentType: application/*+avro
+          binder: kafka
+          consumer:
+            auto-startup: true
+            use-native-decoding: true
+        myProducer-out-0:
+          destination: some-topic
+          binder: kafka
+          producer:
+            auto-startup: true
+            use-native-encoding: true
+      # Kafka specific properties
+      kafka:
+        default:
+          # default properties
+          producer:
+            record-metadata-channel: producerMetadata
+        binder:
+          # KafkaBinderConfigurationProperties.java
+          auto-create-topics: true
+          min-partition-count: 3
+          # if auto-create-topics is true, we can set the partition count of the topics using this property
+          replication-factor:
+          #  if auto-create-topics is true, we can set the replica count of the topics using this property
+          configuration:
+            security:
+              protocol: SASL_SSL
+            # common configuration for all binders, both consumer and producer
+            # can be used for common properties like security
+          consumer-properties:
+            value.deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+            # common properties for consumers, supersede props under configuration
+            # can be used for example setting the serializers
+          producer-properties:
+            value.serializer: org.springframework.kafka.support.serializer.JsonSerializer
+            # same as above but for producer
+          required-acks: 1
+            # number of required acks on broker 
+            #     0      -> won't wait for acknowledge (fast, receiving not guaranteed )
+            #     1      -> waits for leader ack (fast, record can be lost under special circumstances)
+          #     all/-1 -> waits until the full in-sync (slower, no record loss)
+        bindings:
+          # KafkaBindingProperties.java
+          # spring.cloud.stream.kafka.bindings.<binding-name>
+          myConsumer-in-0:
+            consumer:
+              # KafkaConsumerProperties.java
+              auto-rebalance-enabled: true
+              # enable auto rebalancing between the member of the consumer group [default: true]
+              auto-commit-offset: false
+              # auto/manual offset commit
+              start-offset: latest
+                # earliest: new consumer group starts reading from the first message of the topic
+              # latest:   new consumer group starts reading from the message sent after it is connected to the topic
+              configuration:
+                fetch.min.bytes: 5
+                # generic kafka properties
+          myProducer-out-0:
+            producer:
+              # KafkaProducerProperties.java
+              buffer-size: 16384
+              # max batch size
+              batch-timeout: 10
+              # how long the producer waits for more messages before send
+              configuration:
+              # same as consumer.configuration
+              compression-type: gzip
+              # message compression
+
