@@ -1,0 +1,60 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant Application
+participant  WebService
+database  Database
+
+group First vehicle
+activate Application
+Application -> WebService: GET /vehicle Request
+deactivate Application
+activate WebService
+Application <- WebService: GET /vehicle Response
+deactivate WebService
+activate Application
+Application -> Application: Map to Car
+Application -> Database: Save Vehicle Started
+deactivate Application
+activate Database
+Application <- Database: Save Vehicle Finished
+deactivate Database
+activate Application
+end
+
+group Second vehicle
+Application -> WebService: GET /vehicle Request
+deactivate Application
+activate WebService
+Application <- WebService: GET /vehicle Response
+deactivate WebService
+activate Application
+Application -> Application: Map to Car
+Application -> Database: Save Vehicle Started
+deactivate Application
+activate Database
+Application <- Database: Save Vehicle Finished
+deactivate Database
+activate Application
+end
+
+group Third vehicle
+Application -> WebService: GET /vehicle Request
+deactivate Application
+activate WebService
+Application <- WebService: GET /vehicle Response
+deactivate WebService
+activate Application
+Application -> Application: Map to Car
+Application -> Database: Save Vehicle Started
+deactivate Application
+activate Database
+Application <- Database: Save Vehicle Finished
+deactivate Database
+activate Application
+end
+
+
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+participant Application
+participant  WebService
+database  Database
+
+
+Application -> WebService: **First** GET /vehicle Request
+Application -> WebService: **Second** GET /vehicle Request
+Application <-- WebService: **Second** GET /vehicle Response
+Application <-- WebService: **First** GET /vehicle Response
+Application -> Application: **Second** Map to Car
+Application -> Database: **Second** Save Vehicle Started
+Application -> Application: **First** Map to Car
+Application <-- Database: **Second** Save Vehicle Finished
+Application -> WebService: **Third** GET /vehicle Request
+Application -> Database: **Third** Save Vehicle Started
+Application <-- WebService: **Third** GET /vehicle Response
+Application -> Database: **First** Save Vehicle Started
+Application -> Application: **Third** Map to Car
+Application <-- Database: **First** Save Vehicle Finished
+Application <-- Database: **Third** Save Vehicle Finished
+
+
+@enduml

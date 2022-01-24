@@ -64,15 +64,20 @@ subprojects {
     dependencies {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
         implementation("org.springframework.cloud:spring-cloud-stream")
         implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+        implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+        implementation("io.projectreactor.addons:reactor-extra")
         implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.1")
         implementation("io.projectreactor.netty:reactor-netty:1.0.14")
 
         annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
         testImplementation("org.springframework.boot:spring-boot-starter-test")
+        testImplementation("io.projectreactor:reactor-test")
+        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
 
     }
 

@@ -49,7 +49,7 @@ spring:
             # number of required acks on broker 
             #     0      -> won't wait for acknowledge (fast, receiving not guaranteed )
             #     1      -> waits for leader ack (fast, record can be lost under special circumstances)
-          #     all/-1 -> waits until the full in-sync (slower, no record loss)
+            #     all/-1 -> waits until the full in-sync (slower, no record loss)
         bindings:
           # KafkaBindingProperties.java
           # spring.cloud.stream.kafka.bindings.<binding-name>
@@ -58,7 +58,7 @@ spring:
               # KafkaConsumerProperties.java
               auto-rebalance-enabled: true
               # enable auto rebalancing between the member of the consumer group [default: true]
-              auto-commit-offset: false
+              ack-mode: MANUAL
               # auto/manual offset commit
               start-offset: latest
                 # earliest: new consumer group starts reading from the first message of the topic
