@@ -1,0 +1,28 @@
+server:
+  port: 8070
+
+spring:
+  application:
+    name: student-producer
+  kafka:
+    bootstrap-servers: localhost:9092
+  cloud:
+    stream:
+      function:
+        definition: produceStudents
+      default:
+        contentType: application/*+avro
+      kafka:
+        binder:
+          auto-create-topics: true
+          producer-properties:
+            key.serializer: org.apache.kafka.common.serialization.StringSerializer
+            value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+            value.subject.name.strategy: io.confluent.kafka.serializers.subject.RecordNameStrategy
+            schema.registry.url: http://localhost:8081
+            auto.register.schemas: true
+      bindings:
+        produceStudents-out-0:
+          destination: student-topic
+          producer:
+            useNativeEncoding: true
