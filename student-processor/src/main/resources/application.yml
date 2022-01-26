@@ -1,0 +1,30 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: student-processor
+  kafka:
+    bootstrap-servers: localhost:9092
+  cloud:
+    stream:
+      function:
+        definition: processStudents
+      default-binder: kafka
+      kafka:
+        binder:
+          auto-create-topics: true
+        bindings:
+          processStudents-in-0:
+            consumer:
+              configuration:
+                key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+                value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+                schema.registry.url: http://localhost:8081
+                value.subject.name.strategy: io.confluent.kafka.serializers.subject.RecordNameStrategy
+                specific.avro.reader: true
+                autoCommitOffset: false
+      bindings:
+        processStudents-in-0:
+          destination: student-topic
+          contentType: application/*+avro
+          group: student-processor-group
