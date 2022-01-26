@@ -16,13 +16,13 @@ spring:
         bindings:
           processStudents-in-0:
             consumer:
+              ack-mode: MANUAL
               configuration:
                 key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
                 value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
                 schema.registry.url: http://localhost:8081
                 value.subject.name.strategy: io.confluent.kafka.serializers.subject.RecordNameStrategy
                 specific.avro.reader: true
-                autoCommitOffset: false
       bindings:
         processStudents-in-0:
           destination: student-topic
