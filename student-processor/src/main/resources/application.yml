@@ -13,6 +13,8 @@ spring:
       kafka:
         binder:
           auto-create-topics: true
+          auto-add-partitions: true
+          min-partition-count: 3
         bindings:
           processStudents-in-0:
             consumer:

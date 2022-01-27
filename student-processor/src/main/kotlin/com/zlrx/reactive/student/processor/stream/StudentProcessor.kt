@@ -28,6 +28,7 @@ class StudentProcessor {
     private fun processStudent(studentMessage: Message<Student>) = mono {
         val student = studentMessage.payload
         logger.info("Student received: $student")
+        logger.info("Student message headers: ${studentMessage.headers}")
 
         val ackHeader = studentMessage.headers.get(KafkaHeaders.ACKNOWLEDGMENT, Acknowledgment::class.java)
         ackHeader?.acknowledge()
