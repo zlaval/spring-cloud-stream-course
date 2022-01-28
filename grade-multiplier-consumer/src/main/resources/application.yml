@@ -9,7 +9,9 @@ spring:
   cloud:
     stream:
       function:
-        definition: consumeGradeMultiplier
+        definition: consumeGradeMultiplier|consumeGradeValue
+        bindings:
+          consumeGradeMultiplier|consumeGradeValue-in-0: composedInput
       default-binder: kafka
       kafka:
         binder:
@@ -19,7 +21,7 @@ spring:
             value.deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
             spring.json.trusted.packages: "*"
       bindings:
-        consumeGradeMultiplier-in-0:
+        composedInput:
           destination: grade-topic
           group: grade-consumer
           consumer:

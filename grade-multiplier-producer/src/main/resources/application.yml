@@ -19,3 +19,5 @@ spring:
           destination: grade-topic
           producer:
             useNativeEncoding: true
+server:
+  port: 8005

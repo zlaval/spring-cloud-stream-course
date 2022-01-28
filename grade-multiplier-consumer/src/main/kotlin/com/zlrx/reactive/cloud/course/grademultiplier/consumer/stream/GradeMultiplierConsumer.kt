@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import reactor.core.publisher.Flux
 import java.util.function.Consumer
+import java.util.function.Function
 
 @Configuration
 class GradeMultiplierConsumer(
@@ -16,10 +17,19 @@ class GradeMultiplierConsumer(
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @Bean
-    fun consumeGradeMultiplier(): Consumer<Flux<GradeMultiplier>> = Consumer { stream ->
+    fun consumeGradeMultiplier(): Function<Flux<GradeMultiplier>, Flux<Double>> = Function { stream ->
         stream.doOnNext {
             gradeService.emmitMessage(it)
             logger.info("Actual grade-multiplier: $it")
+        }.map {
+            it.multiplier
+        }
+    }
+
+    @Bean
+    fun consumeGradeValue(): Consumer<Flux<Double>> = Consumer { stream ->
+        stream.doOnNext {
+            // logger.info("Actual grade-multiplier value: $it")
         }.subscribe()
     }
 }
