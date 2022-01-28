@@ -1,3 +1,19 @@
+string-producer-config: &string-producer-config
+  consumer:
+    configuration:
+      key.serializer: org.apache.kafka.common.serialization.StringSerializer
+      value.serializer: org.apache.kafka.common.serialization.StringSerializer
+
+avro-consumer-config: &avro-consumer-config
+  consumer:
+    configuration:
+      key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      schema.registry.url: http://localhost:8081
+      value.subject.name.strategy: io.confluent.kafka.serializers.subject.RecordNameStrategy
+      specific.avro.reader: true
+
+
 server:
   port: 8080
 spring:
@@ -8,7 +24,7 @@ spring:
   cloud:
     stream:
       function:
-        definition: processStudents
+        definition: processStudents;produceNameAndCity
       default-binder: kafka
       kafka:
         binder:
@@ -16,17 +32,50 @@ spring:
           auto-add-partitions: true
           min-partition-count: 3
         bindings:
+          produceNameAndCity-in-0:
+            <<: *avro-consumer-config
+          produceNameAndCity-out-0:
+            <<: *string-producer-config
+          produceNameAndCity-out-1:
+            <<: *string-producer-config
           processStudents-in-0:
+            <<: *avro-consumer-config
+          processStudents-in-1:
             consumer:
-              ack-mode: MANUAL
               configuration:
                 key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
-                value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
-                schema.registry.url: http://localhost:8081
-                value.subject.name.strategy: io.confluent.kafka.serializers.subject.RecordNameStrategy
-                specific.avro.reader: true
+                value.deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+                spring.json.trusted.packages: "*"
+          processStudents-out-0:
+            producer:
+              configuration:
+                key.serializer: org.apache.kafka.common.serialization.StringSerializer
+                value.serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
       bindings:
+        produceNameAndCity-in-0:
+          destination: student-topic
+          contentType: application/*+avro
+          group: name-city-publisher-group
+        produceNameAndCity-out-0:
+          destination: student-name-topic
+          group: name-city-publisher-group
+        produceNameAndCity-out-1:
+          destination: city-topic
+          group: name-city-publisher-group
         processStudents-in-0:
           destination: student-topic
           contentType: application/*+avro
           group: student-processor-group
+        processStudents-in-1:
+          destination: grade-topic
+          contentType: application/json
+          group: student-processor-group
+          consumer:
+            useNativeEncoding: true
+        processStudents-out-0:
+          destination: person-topic
+          contentType: application/json
+          producer:
+            useNativeEncoding: true
+
