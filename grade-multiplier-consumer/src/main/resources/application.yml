@@ -1,5 +1,5 @@
 server:
-  port: 8060
+  port: 0
 
 spring:
   application:
@@ -20,6 +20,7 @@ spring:
             key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
             value.deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
             spring.json.trusted.packages: "*"
+          min-partition-count: 2
       bindings:
         composedInput:
           destination: grade-topic
