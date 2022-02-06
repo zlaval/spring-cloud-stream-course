@@ -25,7 +25,7 @@ class GradeMultiplierProducer {
         generateMessage()
     }
 
-    private fun generateMessage() = Flux.interval(Duration.ofSeconds(1))
+    private fun generateMessage() = Flux.interval(Duration.ofSeconds(3))
         .map {
             val multiplier = GradeMultiplier(
                 multiplier = random.nextDouble(10.0, 70.0),
