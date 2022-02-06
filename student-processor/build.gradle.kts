@@ -5,4 +5,5 @@ dependencies {
     implementation("io.confluent:kafka-avro-serializer:6.2.2")
     implementation("org.apache.avro:avro:1.10.2")
     implementation("org.apache.commons:commons-lang3:3.12.0")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
 }

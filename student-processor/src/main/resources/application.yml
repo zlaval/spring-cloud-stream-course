@@ -14,6 +14,14 @@ avro-consumer-config: &avro-consumer-config
       specific.avro.reader: true
 
 
+management:
+  server:
+    port: 9002
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
 server:
   port: 8080
 spring:
