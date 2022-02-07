@@ -16,7 +16,7 @@ spring:
         binder:
           auto-create-topics: true
           auto-add-partitions: true
-          min-partition-count: 3
+          min-partition-count: 2
           producer-properties:
             key.serializer: org.apache.kafka.common.serialization.StringSerializer
             value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer

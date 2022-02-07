@@ -38,7 +38,7 @@ spring:
         binder:
           auto-create-topics: true
           auto-add-partitions: true
-          min-partition-count: 3
+          min-partition-count: 2
         bindings:
           produceNameAndCity-in-0:
             <<: *avro-consumer-config

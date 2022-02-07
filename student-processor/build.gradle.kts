@@ -6,4 +6,6 @@ dependencies {
     implementation("org.apache.avro:avro:1.10.2")
     implementation("org.apache.commons:commons-lang3:3.12.0")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("io.micrometer:micrometer-registry-prometheus:1.8.2")
 }

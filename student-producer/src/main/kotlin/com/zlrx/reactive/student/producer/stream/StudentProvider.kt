@@ -28,7 +28,7 @@ class StudentProvider(
 
     @Bean
     fun produceStudents(): Supplier<Flux<Message<Student>>> = Supplier {
-        Flux.interval(Duration.ofMillis(random.nextLong(500, 2500)))
+        Flux.interval(Duration.ofMillis(random.nextLong(100)))
             .map {
                 generateStudent(it % 10)
             }.doOnNext {
