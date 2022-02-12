@@ -9,6 +9,9 @@ spring:
         definition: produceGradeMultiplier
       default-binder: kafka
       kafka:
+        default:
+          producer:
+            recordMetadataChannel: producerMetaData
         binder:
           auto-create-topics: true
           producer-properties:

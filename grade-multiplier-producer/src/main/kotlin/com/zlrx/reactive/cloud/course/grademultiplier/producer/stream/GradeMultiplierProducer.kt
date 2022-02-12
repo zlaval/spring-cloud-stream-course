@@ -37,7 +37,5 @@ class GradeMultiplierProducer {
                 .withPayload(multiplier)
                 .setHeader(KafkaHeaders.MESSAGE_KEY, key)
                 .build()
-        }.doOnNext {
-            logger.info("Produced value: $it")
         }
 }

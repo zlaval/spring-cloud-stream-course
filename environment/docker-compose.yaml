@@ -47,6 +47,33 @@ services:
     hostname: grafana
     ports:
       - 3000:3000
+  rabbitmq:
+    image: rabbitmq:3.9.13-management
+    hostname: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    ports:
+      - 5672:5672
+      - 15672:15672
+  mongodb:
+    image: mongo:5.0.6-focal
+    hostname: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - 27017:27017
+
+
+
+
+
+
+
+
+
+
 
 
 
