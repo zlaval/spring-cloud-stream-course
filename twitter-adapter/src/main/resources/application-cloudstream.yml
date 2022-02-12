@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        publishTweets-out-0:
+          destination: tweets.message.exchange
+          required-group: tweet-producer-group
+      rabbit:
+        bindings:
+          publishTweets-out-0:
+            producer:
+              bindingRoutingKey: tweet_type
+              routingKeyExpression: headers.tweet_type
+              exchangeAutoDelete: false
+              exchangeType: direct

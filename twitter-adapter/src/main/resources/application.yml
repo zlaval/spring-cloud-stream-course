@@ -1,0 +1,25 @@
+#change your own: https://developer.twitter.com/en/portal/dashboard
+twitter:
+  access-token: 3468584182-YWFJwSWxPfIauHqk86xPbl1rjAE
+  access-token-secret: e6LZ7HLTMuTuNsNkuT0o3oi0gVHjZCM0
+  api-key: KdsBJrHfjxGKxRHmI9x
+  api-secret: EXHuSo1vm5Y9KbRMj7YeQ7Ih7jFWTtul3
+
+server:
+  port: 9900
+spring:
+  profiles:
+    include:
+      - cloudstream
+  application:
+    name: twitter-adapter
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
+  cloud:
+    stream:
+      default-binder: rabbit
+      function:
+        definition: publishTweets

@@ -1,0 +1,57 @@
+server:
+  port: 0
+
+tweetType: ${TWEET_TYPE:PROGRAMMING}
+
+spring:
+  application:
+    name: tweet-processor
+  data:
+    mongodb:
+      uri: mongodb://dbuser:secret@localhost:27017/${tweetType}
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
+  cloud:
+    stream:
+      default-binder: rabbit
+      function:
+        definition: processTweets
+      bindings:
+        processTweets-in-0:
+          destination: tweets.message.exchange
+          group: tweet-processor-${tweetType}-group
+        processTweets-out-0:
+          destination: tweet.metadata.exchange
+          required-group: tweetmeta-group
+      rabbit:
+        bindings:
+          processTweets-in-0:
+            consumer:
+              bindingRoutingKey: ${tweetType}
+              exchangeType: direct
+              exchangeAutoDelete: false
+          processTweets-out-0:
+            producer:
+              bindingRoutingKey: tweet_length
+              routingKeyExpression: "'tweet_length'"
+              exchangeType: direct
+              exchangeAutoDelete: false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

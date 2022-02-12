@@ -1,0 +1,26 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: twitter-rest
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
+  cloud:
+    stream:
+      default-binder: rabbit
+      function:
+        definition: consumeMetadata
+      bindings:
+        consumeMetadata-in-0:
+          group: tweet-rest-group
+          destination: tweet.metadata.exchange
+      rabbit:
+        bindings:
+          consumeMetadata-in-0:
+            consumer:
+              bindingRoutingKey: tweet_length
+              exchangeType: direct
+              exchangeAutoDelete: false
